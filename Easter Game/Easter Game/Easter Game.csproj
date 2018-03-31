@@ -44,6 +44,7 @@
     <Compile Include="Game1.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Scene.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="MonoGame.Framework">
@@ -53,12 +54,22 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\BGM\Guardia Castle ~Pride &amp; Glory~.mp3" />
+    <Content Include="Content\Default Assets\Black Knight.png" />
+    <Content Include="Content\Default Assets\Cannonball.png" />
+    <Content Include="Content\Default Assets\End Tower.png" />
+    <Content Include="Content\Default Assets\Player.png" />
+    <Content Include="Content\Default Assets\Start Tower.png" />
+    <Content Include="Content\Default SFX\Backing Track WAV.wav" />
+    <Content Include="Content\Default SFX\Cannon Fire.wav" />
+    <Content Include="Content\Default SFX\Impact.wav" />
     <Content Include="Icon.ico" />
   </ItemGroup>
   <ItemGroup>
     <MonoGameContentReference Include="Content\Content.mgcb" />
     <None Include="app.manifest" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath)\MonoGame\v3.0\MonoGame.Content.Builder.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
