@@ -48,6 +48,7 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Scene.cs" />
+    <Compile Include="SceneManager.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="MonoGame.Framework">
@@ -58,19 +59,19 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\BGM\Guardia Castle ~Pride &amp; Glory~.mp3" />
-    <Content Include="Content\Default Assets\Black Knight.png" />
-    <Content Include="Content\Default Assets\Cannonball.png" />
-    <Content Include="Content\Default Assets\End Tower.png" />
-    <Content Include="Content\Default Assets\Player.png" />
-    <Content Include="Content\Default Assets\Start Tower.png" />
-    <Content Include="Content\Default SFX\Backing Track WAV.wav" />
-    <Content Include="Content\Default SFX\Cannon Fire.wav" />
-    <Content Include="Content\Default SFX\Impact.wav" />
-    <Content Include="Content\Menu\Cursor.png" />
-    <Content Include="Content\Menu\Exit Option.png" />
-    <Content Include="Content\Menu\High Score Option.png" />
-    <Content Include="Content\Menu\Menu Background.jpg" />
-    <Content Include="Content\Menu\Play Option.png" />
+    <Content Include="Content\Default Assets\Game_2_BKnight.png" />
+    <Content Include="Content\Default Assets\Game_1_Cannonball.png" />
+    <Content Include="Content\Default Assets\Game_4_EndT.png" />
+    <Content Include="Content\Default Assets\Game_0_Player.png" />
+    <Content Include="Content\Default Assets\Game_3_StartT.png" />
+    <Content Include="Content\Default SFX\SFX_0_BTrack.wav" />
+    <Content Include="Content\Default SFX\SFX_1_CFire.wav" />
+    <Content Include="Content\Default SFX\SFX_2_Impact.wav" />
+    <Content Include="Content\Menu\Menu_4_Cursor.png" />
+    <Content Include="Content\Menu\Menu_3_Exit.png" />
+    <Content Include="Content\Menu\Menu_2_HighScore.png" />
+    <Content Include="Content\Menu\Menu_0_Background.jpg" />
+    <Content Include="Content\Menu\Menu_1_Play.png" />
     <Content Include="Icon.ico" />
   </ItemGroup>
   <ItemGroup>

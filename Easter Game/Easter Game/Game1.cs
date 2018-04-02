@@ -1,6 +1,8 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Media;
 
 namespace Easter_Game
 {
@@ -12,6 +14,20 @@ namespace Easter_Game
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
 
+        #region Declare the game's textures.
+        // Menu
+        Texture2D menuBG, playOp, highScoreOp, exitOp, cursor;
+        // Gameplay
+        Texture2D player, cannonball, bKnight, startTower, endTower;
+        #endregion
+
+        #region Declare BGM and SFX
+        // BGM
+        Song playTrack;
+        // SFX
+        SoundEffect cannonFire, impact, backingTrack;
+        #endregion
+
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
@@ -22,9 +38,7 @@ namespace Easter_Game
         }
         
         protected override void Initialize()
-        {          
-            
-
+        {                    
             base.Initialize();
         }
 
@@ -36,7 +50,11 @@ namespace Easter_Game
         {
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
-          
+
+            #region Load Game Textures.
+
+            #endregion
+
         }
 
         /// <summary>
