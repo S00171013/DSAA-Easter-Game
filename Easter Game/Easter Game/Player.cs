@@ -53,7 +53,7 @@ namespace Easter_Game
                 UpdateAnimation(gameTime);
             }
 
-            else if (Keyboard.GetState().IsKeyDown(Keys.D))
+            if (Keyboard.GetState().IsKeyDown(Keys.D))
             {
                 // Right                
                 Move(new Vector2(PLAYER_SPEED, 0));             
@@ -61,14 +61,14 @@ namespace Easter_Game
                 UpdateAnimation(gameTime);
             }
 
-            else if (Keyboard.GetState().IsKeyDown(Keys.W))
+            if (Keyboard.GetState().IsKeyDown(Keys.W))
             {
                 // Up                
                 Move(new Vector2(0, -PLAYER_SPEED));                           
                 UpdateAnimation(gameTime);
             }
 
-            else if (Keyboard.GetState().IsKeyDown(Keys.S))
+            if (Keyboard.GetState().IsKeyDown(Keys.S))
             {
                 // Down              
                 Move(new Vector2(0, PLAYER_SPEED));

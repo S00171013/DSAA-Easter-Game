@@ -42,6 +42,10 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="AnimatedSprite.cs" />
+    <Compile Include="Collectable.cs" />
+    <Compile Include="EndTower.cs" />
+    <Compile Include="Enemy.cs" />
+    <Compile Include="MenuOption.cs" />
     <Compile Include="Cursor.cs" />
     <Compile Include="Game1.cs" />
     <Compile Include="Loader.cs" />
@@ -50,6 +54,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Scene.cs" />
     <Compile Include="SceneManager.cs" />
+    <Compile Include="StartTower.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="MonoGame.Framework">
