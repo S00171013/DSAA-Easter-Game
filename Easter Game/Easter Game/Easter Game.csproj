@@ -41,7 +41,10 @@
     <ApplicationManifest>app.manifest</ApplicationManifest>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="AnimatedSprite.cs" />
+    <Compile Include="Cursor.cs" />
     <Compile Include="Game1.cs" />
+    <Compile Include="Player.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Scene.cs" />
@@ -63,6 +66,11 @@
     <Content Include="Content\Default SFX\Backing Track WAV.wav" />
     <Content Include="Content\Default SFX\Cannon Fire.wav" />
     <Content Include="Content\Default SFX\Impact.wav" />
+    <Content Include="Content\Menu\Cursor.png" />
+    <Content Include="Content\Menu\Exit Option.png" />
+    <Content Include="Content\Menu\High Score Option.png" />
+    <Content Include="Content\Menu\Menu Background.jpg" />
+    <Content Include="Content\Menu\Play Option.png" />
     <Content Include="Icon.ico" />
   </ItemGroup>
   <ItemGroup>

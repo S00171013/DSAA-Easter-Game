@@ -15,11 +15,15 @@ namespace Easter_Game
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
+            // Set resolution.
+            graphics.PreferredBackBufferWidth = 1280;
+            graphics.PreferredBackBufferHeight = 720;
             Content.RootDirectory = "Content";
         }
         
         protected override void Initialize()
         {          
+            
 
             base.Initialize();
         }
