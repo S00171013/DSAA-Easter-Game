@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System.Collections.Generic;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
@@ -15,11 +16,17 @@ namespace Easter_Game
         SpriteBatch spriteBatch;
 
         #region Declare the game's textures.
-        // Menu
+        // Menu.
         Texture2D menuBG, playOp, highScoreOp, exitOp, cursor;
-        // Gameplay
+        // Menu texture dictionary.
+        Dictionary<string, Texture2D> menuTextures = new Dictionary<string, Texture2D>();
+        // Gameplay.
         Texture2D player, cannonball, bKnight, startTower, endTower;
+        // Gameplay texture dictionary.
+        Dictionary<string, Texture2D> gameplayTextures = new Dictionary<string, Texture2D>();
         #endregion
+
+        Player p1;
 
         #region Declare BGM and SFX
         // BGM
@@ -51,9 +58,17 @@ namespace Easter_Game
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
-            #region Load Game Textures.
-
+            #region Load Textures.
+            // Menu.
+            menuTextures = Loader.ContentLoad<Texture2D>(Content, "Menu");
+            // Gameplay.
+            gameplayTextures = Loader.ContentLoad<Texture2D>(Content, "Default Assets");
             #endregion
+
+            p1 = new Player(this, gameplayTextures["Game_0_Player"], new Vector2(100, 100), Color.White, 1);       
+
+            // Load SFX.
+
 
         }
 
@@ -74,7 +89,9 @@ namespace Easter_Game
         protected override void Update(GameTime gameTime)
         {
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
-                Exit();          
+                Exit();
+
+            p1.Update(gameTime);
 
             base.Update(gameTime);
         }
@@ -86,7 +103,10 @@ namespace Easter_Game
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
-           
+
+            spriteBatch.Begin();
+            p1.Draw(spriteBatch);
+            spriteBatch.End();
 
             base.Draw(gameTime);
         }
