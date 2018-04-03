@@ -65,11 +65,13 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\BGM\Guardia Castle ~Pride &amp; Glory~.mp3" />
-    <Content Include="Content\Default Assets\Game_2_BKnight.png" />
-    <Content Include="Content\Default Assets\Game_1_Cannonball.png" />
-    <Content Include="Content\Default Assets\Game_4_EndT.png" />
-    <Content Include="Content\Default Assets\Game_0_Player.png" />
-    <Content Include="Content\Default Assets\Game_3_StartT.png" />
+    <Content Include="Content\Default Assets\Game_0_Background.png" />
+    <Content Include="Content\Default Assets\Game_3_BKnight.png" />
+    <Content Include="Content\Default Assets\Game_2_Cannonball.png" />
+    <Content Include="Content\Default Assets\Game_5_EndT.png" />
+    <Content Include="Content\Default Assets\Game_1_Player.png" />
+    <Content Include="Content\Default Assets\Game_4_StartT.png" />
+    <Content Include="Content\Default Assets\Game_6_Collectable.png" />
     <Content Include="Content\Default SFX\SFX_0_BTrack.wav" />
     <Content Include="Content\Default SFX\SFX_1_CFire.wav" />
     <Content Include="Content\Default SFX\SFX_2_Impact.wav" />
