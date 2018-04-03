@@ -50,6 +50,19 @@ namespace Easter_Game
         const int MINIMUM_COLLECTABLES = 10;
         const int MAXIMUM_COLLECTABLES = 20;
         Random randomG = new Random();
+
+        // Enemy Queue
+        Queue<Enemy> enemyQ = new Queue<Enemy>();
+        Enemy dequeuedEnemy;
+
+        // Start Towers
+        List<StartTower> sTowers = new List<StartTower>();
+        const int MINIMUM_TOWERS = 3;
+        const int MAXIMUM_TOWERS = 6;
+
+        // End Towers
+        List<EndTower> eTowers = new List<EndTower>();
+
         #endregion
 
         public Game1()
@@ -60,11 +73,11 @@ namespace Easter_Game
             graphics.PreferredBackBufferHeight = 720;
             Content.RootDirectory = "Content";
         }
-        
+
         protected override void Initialize()
         {
             // Set mouse to "visible".
-            IsMouseVisible = true;       
+            IsMouseVisible = true;
             base.Initialize();
         }
 
@@ -99,7 +112,7 @@ namespace Easter_Game
             playOp = new MenuOption(menuTextures["Menu_1_Play"], new Vector2(500, 300), Color.White, 1, this, false);
             highScoreOp = new MenuOption(menuTextures["Menu_2_HighScore"], new Vector2(503, 430), Color.White, 1, this, false);
             exitOp = new MenuOption(menuTextures["Menu_3_Exit"], new Vector2(500, 560), Color.White, 1, this, false);
-            List <MenuOption> menuOptions = new List<MenuOption>();
+            List<MenuOption> menuOptions = new List<MenuOption>();
 
             // Add to option list.
             menuOptions.Add(playOp);
@@ -115,9 +128,9 @@ namespace Easter_Game
             #region Create gameplay objects.
             // Create player.
             p1 = new Player(this, gameplayTextures["Game_1_Player"], new Vector2(100, 100), Color.White, 1);
-            
-            // Create a random number of collectable coins, scattered in random locations.
-            for(int i=0; i< RandomInt(10, 20); i++)
+
+            #region Create a random number of collectable coins, scattered in random locations.
+            for (int i = 0; i < RandomInt(10, 20); i++)
             {
                 #region Set a random position for the new collectable on the playing field.
                 int xPos = RandomInt(
@@ -134,9 +147,42 @@ namespace Easter_Game
                     new Vector2(xPos, yPos),
                     Color.White,
                     6));
-            }   
+            }
             #endregion
 
+            #region Create a random number of enemies to add to the queue. Won't be doing anything with these yet.
+            for (int i = 0; i < RandomInt(5, 10); i++)
+            {
+                enemyQ.Enqueue(new Enemy(
+                    gameplayTextures["Game_3_BKnight"],
+                    new Vector2(0, 0),
+                    Color.White,
+                    1));
+            }
+            #endregion
+
+            #region Create a random number of start towers, scattered in random locations.
+            for (int i = 0; i < RandomInt(3, 6); i++)
+            {
+                #region Set a random position for the new start tower on the playing field.
+                int xPos = RandomInt(
+                    100,
+                    playingField.Width);
+
+                int yPos = RandomInt(
+                    100,
+                    playingField.Height);
+                #endregion
+
+                sTowers.Add(new StartTower(
+                    gameplayTextures["Game_4_StartT"],
+                    new Vector2(xPos, yPos),
+                    Color.White,
+                    1));
+            }
+            #endregion
+
+            #endregion
 
             // Set the initial active scene to that of the main menu.
             activeScene = menu;
@@ -162,7 +208,7 @@ namespace Easter_Game
                 Exit();
 
             // Update the current scene.
-            activeScene.Update(gameTime);          
+            activeScene.Update(gameTime);            
 
             // Update the player if gameplay has been initiated.
             if (activeScene.SceneType == "Gameplay")
@@ -184,7 +230,7 @@ namespace Easter_Game
             spriteBatch.Begin();
 
             // Draw the current scene.
-            activeScene.Draw(spriteBatch);            
+            activeScene.Draw(spriteBatch);           
 
             // Draw the player if gameplay has been initiated.
             if (activeScene.SceneType == "Gameplay")
