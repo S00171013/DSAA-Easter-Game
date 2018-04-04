@@ -182,7 +182,26 @@ namespace Easter_Game
             }
             #endregion
 
+            #region Create the end towers and ensure they are each nearby a start tower. Very, very rough for now.
+            foreach(StartTower st in sTowers)
+            {
+                eTowers.Add(new EndTower(
+                    gameplayTextures["Game_5_EndT"],
+                    new Vector2(st.Position.X + 300, st.Position.Y + 300),
+                    Color.White,
+                    1
+                    ));
+            }
             #endregion
+
+            #endregion
+
+            // Create gameplay scene.
+            Scene gameplay = new Scene(gameplayTextures["Game_0_Background"],
+                collectables,
+                enemyQ,
+                sTowers,
+                eTowers));
 
             // Set the initial active scene to that of the main menu.
             activeScene = menu;

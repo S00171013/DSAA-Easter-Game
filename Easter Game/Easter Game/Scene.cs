@@ -18,7 +18,7 @@ namespace Easter_Game
 
         // The following properties are specific to a play scene.
         public List<Collectable> Collectables { get; }
-        public List<Enemy> Enemies { get; }
+        public Queue<Enemy> Enemies { get; }
         public List<StartTower> STowers { get; }
         public List<EndTower> ETowers { get; }
 
@@ -40,7 +40,7 @@ namespace Easter_Game
         }
 
         // Play Scene Constructor.
-        public Scene(Texture2D backgroundIn, List<Collectable> collectablesIn, List<Enemy> enemiesIn, List<StartTower> sTowersIn, List<EndTower> eTowersIn)
+        public Scene(Texture2D backgroundIn, List<Collectable> collectablesIn, Queue<Enemy> enemiesIn, List<StartTower> sTowersIn, List<EndTower> eTowersIn)
         {
             Background = backgroundIn;
             Collectables = collectablesIn;
