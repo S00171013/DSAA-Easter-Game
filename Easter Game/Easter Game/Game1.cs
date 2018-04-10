@@ -11,7 +11,7 @@ namespace Easter_Game
     /// <summary>
     /// This is the main type for your game.
     /// </summary>
-    public class Game1 : Game
+    class Game1 : Game
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
@@ -43,12 +43,17 @@ namespace Easter_Game
         SceneManager sceneManager;
 
         // Player
-        Player p1;
+        public Player p1;
 
         // Collectables
         List<Collectable> collectables = new List<Collectable>();
+        // Constants for number of collectables in the game.
         const int MINIMUM_COLLECTABLES = 10;
         const int MAXIMUM_COLLECTABLES = 20;
+        // Constants for the min and max score value of a collectable.
+        const int MINIMUM_SCORE = 1;
+        const int MAXIMUM_SCORE = 10;
+
         Random randomG = new Random();
 
         // Enemy Queue
@@ -142,7 +147,8 @@ namespace Easter_Game
                     playingField.Height);
                 #endregion
 
-                collectables.Add(new Collectable(
+                collectables.Add(new Collectable(this,
+                    RandomInt(MINIMUM_SCORE, MAXIMUM_SCORE),
                     gameplayTextures["Game_6_Collectable"],
                     new Vector2(xPos, yPos),
                     Color.White,
@@ -197,11 +203,11 @@ namespace Easter_Game
             #endregion
 
             // Create gameplay scene.
-            Scene gameplay = new Scene(gameplayTextures["Game_0_Background"],
+            Scene gameplay = new Scene(p1, gameplayTextures["Game_0_Background"],
                 collectables,
                 enemyQ,
                 sTowers,
-                eTowers));
+                eTowers);
 
             // Set the initial active scene to that of the main menu.
             activeScene = menu;

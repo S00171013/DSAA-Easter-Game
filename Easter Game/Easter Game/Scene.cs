@@ -26,7 +26,7 @@ namespace Easter_Game
 
         // Fields
         Vector2 origin = new Vector2(0, 0);
-
+        Player player;
         
 
         // Menu Scene Constructor.
@@ -40,8 +40,10 @@ namespace Easter_Game
         }
 
         // Play Scene Constructor.
-        public Scene(Texture2D backgroundIn, List<Collectable> collectablesIn, Queue<Enemy> enemiesIn, List<StartTower> sTowersIn, List<EndTower> eTowersIn)
+        public Scene(Player playerIn, Texture2D backgroundIn, List<Collectable> collectablesIn, Queue<Enemy> enemiesIn, List<StartTower> sTowersIn, List<EndTower> eTowersIn)
         {
+            player = playerIn;
+
             Background = backgroundIn;
             Collectables = collectablesIn;
             Enemies = enemiesIn;
@@ -63,15 +65,20 @@ namespace Easter_Game
                         item.Update(gtIn);
                     }
                     break;
+                   
+                    case "Gameplay":
+                    // Update the scene's collectables.
+                    foreach (Collectable c in Collectables)
+                    {
+                        c.CheckPlayerCollision(player);
+                    }
 
-                    // Will return to this option later.
-                    //case "Gameplay":
-                    //    // Update the scene's collectables.
-                    //    foreach (Collectable c in Collectables)
-                    //    {
-                    //        c.Update(gtIn);
-                    //    }
-                    //    break;
+                    // Update the scene's enemies.
+                    foreach (Enemy e in Enemies)
+                    {
+                        e.Update(gtIn);
+                    }
+                    break;
             }
         }
 

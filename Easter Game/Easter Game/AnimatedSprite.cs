@@ -28,11 +28,14 @@ namespace Easter_Game
         public int currentFrame = 0;
         int numberOfFrames = 0;
         int millisecondsBetweenFrames = 200;
-        float elapsedTime = 0;       
-       
+        float elapsedTime = 0;
+
+        // Visibility bool.
+        public bool Visible { get; set; }
+
         // Constructor
         public AnimatedSprite(Texture2D image, Vector2 position, Color tint, int frameCountIn)
-        {          
+        {
             // Set up properties.           
             Image = image;
             Position = position;
@@ -40,7 +43,7 @@ namespace Easter_Game
             FrameCount = frameCountIn;
 
             // Width is now width/number of frames
-            Bounds = new Rectangle((int)position.X, (int)position.Y, image.Width/FrameCount, image.Height);
+            Bounds = new Rectangle((int)position.X, (int)position.Y, image.Width / FrameCount, image.Height);
 
             // Set up source rectangle initially. The player sprite won't appear otherwise.
             SourceRectangle = new Rectangle(
@@ -48,10 +51,13 @@ namespace Easter_Game
                 0,
                 Image.Width / FrameCount,
                 Image.Height);
+
+            // Set visibility.
+            Visible = true;
         }
 
         public void UpdateAnimation(GameTime gameTime)
-        {           
+        {
             // Track how much time has passed
             elapsedTime += gameTime.ElapsedGameTime.Milliseconds;
 
@@ -79,18 +85,23 @@ namespace Easter_Game
         // Caller has a spritebatch ready and has already called Begin
         public void Draw(SpriteBatch sp)
         {
-            sp.Draw(Image, Position, SourceRectangle, Tint);
+            if (Visible)
+                sp.Draw(Image, Position, SourceRectangle, Tint);
         }
 
         public void DrawNoRect(SpriteBatch sp)
         {
-            sp.Draw(Image, Position, Tint);                 
+            if (Visible)
+                sp.Draw(Image, Position, Tint);
         }
 
         public void Draw(SpriteBatch sp, SpriteFont sfont)
         {
-            sp.Draw(Image, Position, Tint);
-            sp.DrawString(sfont, Position.ToString(), Position, Color.White);
+            if (Visible)
+            {
+                sp.Draw(Image, Position, Tint);
+                sp.DrawString(sfont, Position.ToString(), Position, Color.White);
+            }
         }
 
         public void Move(Vector2 delta)
