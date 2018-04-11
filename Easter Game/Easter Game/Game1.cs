@@ -54,11 +54,8 @@ namespace Easter_Game
         const int MINIMUM_SCORE = 1;
         const int MAXIMUM_SCORE = 10;
 
-        Random randomG = new Random();
-
-        // Enemy Queue
-        Queue<Enemy> enemyQ = new Queue<Enemy>();
-        Enemy dequeuedEnemy;
+        // Random generator.
+        Random randomG = new Random();      
 
         // Start Towers
         List<StartTower> sTowers = new List<StartTower>();
@@ -154,18 +151,7 @@ namespace Easter_Game
                     Color.White,
                     6));
             }
-            #endregion
-
-            #region Create a random number of enemies to add to the queue. Won't be doing anything with these yet.
-            for (int i = 0; i < RandomInt(5, 10); i++)
-            {
-                enemyQ.Enqueue(new Enemy(
-                    gameplayTextures["Game_3_BKnight"],
-                    new Vector2(0, 0),
-                    Color.White,
-                    1));
-            }
-            #endregion
+            #endregion            
 
             #region Create a random number of start towers, scattered in random locations.
             for (int i = 0; i < RandomInt(3, 6); i++)
@@ -181,31 +167,21 @@ namespace Easter_Game
                 #endregion
 
                 sTowers.Add(new StartTower(
+                    this,
                     gameplayTextures["Game_4_StartT"],
                     new Vector2(xPos, yPos),
                     Color.White,
-                    1));
-            }
-            #endregion
-
-            #region Create the end towers and ensure they are each nearby a start tower. Very, very rough for now.
-            foreach(StartTower st in sTowers)
-            {
-                eTowers.Add(new EndTower(
+                    1,
                     gameplayTextures["Game_5_EndT"],
-                    new Vector2(st.Position.X + 300, st.Position.Y + 300),
-                    Color.White,
-                    1
-                    ));
+                    gameplayTextures["Game_3_BKnight"],
+                    randomG));
             }
             #endregion
-
             #endregion
 
             // Create gameplay scene.
             Scene gameplay = new Scene(p1, gameplayTextures["Game_0_Background"],
-                collectables,
-                enemyQ,
+                collectables,              
                 sTowers,
                 eTowers);
 

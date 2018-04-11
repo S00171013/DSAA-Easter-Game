@@ -17,8 +17,7 @@ namespace Easter_Game
         public List<MenuOption> MenuItems { get; }
 
         // The following properties are specific to a play scene.
-        public List<Collectable> Collectables { get; }
-        public Queue<Enemy> Enemies { get; }
+        public List<Collectable> Collectables { get; }        
         public List<StartTower> STowers { get; }
         public List<EndTower> ETowers { get; }
 
@@ -40,13 +39,12 @@ namespace Easter_Game
         }
 
         // Play Scene Constructor.
-        public Scene(Player playerIn, Texture2D backgroundIn, List<Collectable> collectablesIn, Queue<Enemy> enemiesIn, List<StartTower> sTowersIn, List<EndTower> eTowersIn)
+        public Scene(Player playerIn, Texture2D backgroundIn, List<Collectable> collectablesIn, List<StartTower> sTowersIn, List<EndTower> eTowersIn)
         {
             player = playerIn;
 
             Background = backgroundIn;
-            Collectables = collectablesIn;
-            Enemies = enemiesIn;
+            Collectables = collectablesIn;         
             STowers = sTowersIn;
             ETowers = eTowersIn;
 
@@ -72,11 +70,10 @@ namespace Easter_Game
                     {
                         c.CheckPlayerCollision(player);
                     }
-
-                    // Update the scene's enemies.
-                    foreach (Enemy e in Enemies)
+                    // Update the scene's start towers.
+                    foreach (StartTower st in STowers)
                     {
-                        e.Update(gtIn);
+                        st.Update(gtIn);
                     }
                     break;
             }
