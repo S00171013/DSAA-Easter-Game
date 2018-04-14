@@ -83,7 +83,8 @@ namespace Easter_Game
         }
 
         // Caller has a spritebatch ready and has already called Begin
-        public void Draw(SpriteBatch sp)
+        // Changed to virtual.
+        public virtual void Draw(SpriteBatch sp)
         {
             if (Visible)
                 sp.Draw(Image, Position, SourceRectangle, Tint);
@@ -95,6 +96,7 @@ namespace Easter_Game
                 sp.Draw(Image, Position, Tint);
         }
 
+        
         public void Draw(SpriteBatch sp, SpriteFont sfont)
         {
             if (Visible)

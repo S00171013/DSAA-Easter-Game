@@ -61,14 +61,55 @@ namespace Easter_Game
         public void Update(GameTime gtIn)
         {
             // This method will check whether or not an endtower is within the viewport.
+            if (CheckCTPosition(CorrespondingTower) == true)
+            {
+                // Call method to dequeue enemy.
+                DequeueEnemy();
 
-            // If there is an endtower nearby...
+                // Update the dequeued enemy.
+                dequeuedEnemy.Update(gtIn);
 
-            // Dequeue an enemy and update it.
+                // If the dequeued enemy comes into contact with the endtower...
+                if (dequeuedEnemy.CheckTowerCollision(CorrespondingTower) == true)
+                {
+                    // Re-queue it.
+                    TowerEnemies.Enqueue(dequeuedEnemy);
+                    // Nullify dequeued enemy.
+                    dequeuedEnemy = null;
+                }
+            }
+        }
 
-            // If the dequeued enemy comes into contact with the endtower...
+        public override void Draw(SpriteBatch spIn)
+        {
+            // Draw the start tower's corresponding end tower.
+            CorrespondingTower.Draw(spIn);
 
-            // Re-queue it.
+            // Draw the tower's currently dequeued enemy.
+            dequeuedEnemy.Draw(spIn);
+        }
+
+        public bool CheckCTPosition(EndTower ctIn)
+        {
+            if (CorrespondingTower.Position.X > gameScreen.Width - CorrespondingTower.Image.Width || CorrespondingTower.Position.Y > gameScreen.Height - CorrespondingTower.Image.Height)
+            {
+                return true;
+            }
+
+            else
+            {
+                return false;
+            }
+        }
+
+        public void DequeueEnemy()
+        {
+            // If no dequeued enemy exists...
+            if (dequeuedEnemy == null)
+            {
+                // ...Dequeue an enemy.
+                dequeuedEnemy = TowerEnemies.Dequeue();
+            }
         }
 
         // Quick method to get a random number within a specified range. Useful for collectables.

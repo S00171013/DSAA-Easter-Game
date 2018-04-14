@@ -70,6 +70,7 @@ namespace Easter_Game
                     {
                         c.CheckPlayerCollision(player);
                     }
+
                     // Update the scene's start towers.
                     foreach (StartTower st in STowers)
                     {
@@ -95,13 +96,19 @@ namespace Easter_Game
                     break;
 
                 // Will return to this option later.
-                //case "Gameplay":
-                //    // Render the scene's menu items on top of this background.
-                //    foreach (Collectable c in Collectables)
-                //    {
-                //        spIn.Draw(c.Image, c.Position, c.Tint);
-                //    }
-                //    break;
+                case "Gameplay":
+                    // Render the scene's menu items on top of this background.
+                    foreach (Collectable c in Collectables)
+                    {
+                        spIn.Draw(c.Image, c.Position, c.Tint);
+                    }
+
+                    // Update the scene's start towers.
+                    foreach (StartTower st in STowers)
+                    {
+                        st.Draw(spIn);
+                    }
+                    break;
             }            
         }
     }

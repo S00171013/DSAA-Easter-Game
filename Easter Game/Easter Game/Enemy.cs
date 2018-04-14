@@ -30,6 +30,21 @@ namespace Easter_Game
 
         //    // Shoot at the player.
         }
-        
+
+        public bool CheckTowerCollision(EndTower ctIn)
+        {
+            // Return true if the enemy has reached their destination.         
+            if ((Bounds.Intersects(ctIn.Bounds)))
+            {              
+                return true;
+            }
+
+            // Otherwise, return false if the enemy is still on its way to the target.
+            else
+            {               
+                return false;
+            }
+        }
+
     }
 }
