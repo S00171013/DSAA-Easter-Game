@@ -26,10 +26,7 @@ namespace Easter_Game
         {
             // This method will have the enemy move towards its target.
             HeadToTower();
-
-
-            
-
+          
             // This method will check whether or not the player is within attacking distance of the enemy.
 
 
@@ -40,7 +37,10 @@ namespace Easter_Game
 
         public void HeadToTower()
         {
-            Position = Vector2.Lerp(Position, Target.Position + new Vector2(30, 50), MOVE_SPEED);
+            Position = Vector2.Lerp(Position, Target.Position, MOVE_SPEED);
+
+            // Update bounds.
+            Bounds = new Rectangle((int)Position.X, (int)Position.Y, Image.Width / FrameCount, Image.Height);
         }
 
         public bool CheckTowerCollision(EndTower ctIn)

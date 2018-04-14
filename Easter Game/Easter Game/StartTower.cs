@@ -93,7 +93,7 @@ namespace Easter_Game
                     // Re-queue it.
                     TowerEnemies.Enqueue(dequeuedEnemy);
                     // Nullify dequeued enemy.
-                    dequeuedEnemy = null;
+                   // dequeuedEnemy = null;
                 }
           //  }            
         }
