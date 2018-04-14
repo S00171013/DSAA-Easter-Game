@@ -65,6 +65,9 @@ namespace Easter_Game
         // End Towers
         List<EndTower> eTowers = new List<EndTower>();
 
+        // Declare the game font.
+        SpriteFont gameFont;
+
         #endregion
 
         public Game1()
@@ -98,6 +101,8 @@ namespace Easter_Game
             // Gameplay.
             gameplayTextures = Loader.ContentLoad<Texture2D>(Content, "Default Assets");
             playingField = gameplayTextures["Game_0_Background"];
+            // Load game font.
+            gameFont = Content.Load<SpriteFont>("gameFont");
             #endregion
 
             #region Load SFX and BGM.
@@ -174,7 +179,8 @@ namespace Easter_Game
                     1,
                     gameplayTextures["Game_5_EndT"],
                     gameplayTextures["Game_3_BKnight"],
-                    randomG));
+                    randomG,
+                    gameFont));
             }
             #endregion
             #endregion
@@ -186,7 +192,7 @@ namespace Easter_Game
                 eTowers);
 
             // Set the initial active scene to that of the main menu.
-            activeScene = menu;
+            activeScene = gameplay;
         }
 
         /// <summary>
@@ -236,11 +242,10 @@ namespace Easter_Game
             // Draw the player if gameplay has been initiated.
             if (activeScene.SceneType == "Gameplay")
             {
-                p1.Draw(spriteBatch);
+                p1.Draw(spriteBatch);                              
             }
 
             spriteBatch.End();
-
             base.Draw(gameTime);
         }
 

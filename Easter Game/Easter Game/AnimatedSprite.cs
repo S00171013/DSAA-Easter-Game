@@ -96,8 +96,8 @@ namespace Easter_Game
                 sp.Draw(Image, Position, Tint);
         }
 
-        
-        public void Draw(SpriteBatch sp, SpriteFont sfont)
+        // Changed to virtual.
+        public virtual void Draw(SpriteBatch sp, SpriteFont sfont)
         {
             if (Visible)
             {

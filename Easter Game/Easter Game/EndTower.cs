@@ -10,8 +10,24 @@ namespace Easter_Game
 {
     class EndTower : AnimatedSprite
     {
-        public EndTower(Texture2D image, Vector2 position, Color tint, int frameCountIn) : base(image, position, tint, frameCountIn)
+        // Specific properties.
+        public SpriteFont TowerIDFont { get; }
+        public int TowerID { get; }   
+
+        public EndTower(Texture2D image, Vector2 position, Color tint, int frameCountIn, SpriteFont towerIDFontIn, int towerIDIn) 
+            : base(image, position, tint, frameCountIn)
         {
+            TowerIDFont = towerIDFontIn;
+            TowerID = towerIDIn;
+        }
+
+        public override void Draw(SpriteBatch sp, SpriteFont sf)
+        {
+            if (Visible)
+            {
+                sp.Draw(Image, Position, Tint);
+                sp.DrawString(TowerIDFont, Convert.ToString(TowerID), Position, Color.White);
+            }
         }
     }
 }

@@ -69,6 +69,7 @@ namespace Easter_Game
                     foreach (Collectable c in Collectables)
                     {
                         c.CheckPlayerCollision(player);
+                        c.UpdateAnimation(gtIn);
                     }
 
                     // Update the scene's start towers.
@@ -99,8 +100,8 @@ namespace Easter_Game
                 case "Gameplay":
                     // Render the scene's menu items on top of this background.
                     foreach (Collectable c in Collectables)
-                    {
-                        spIn.Draw(c.Image, c.Position, c.Tint);
+                    {                    
+                        c.Draw(spIn);
                     }
 
                     // Update the scene's start towers.
