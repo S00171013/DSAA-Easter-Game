@@ -68,6 +68,11 @@ namespace Easter_Game
         // Declare the game font.
         SpriteFont gameFont;
 
+
+        //  Declare camera.
+        //Camera cam;
+        
+
         #endregion
 
         public Game1()
@@ -83,6 +88,16 @@ namespace Easter_Game
         {
             // Set mouse to "visible".
             IsMouseVisible = true;
+
+            new InputEngine(this);
+
+            // Camera set-up.
+            new Camera(this, Vector2.Zero,
+               new Vector2(GraphicsDevice.Viewport.Width, GraphicsDevice.Viewport.Height),
+               p1);
+
+            // Get the gameScreen
+            //gameScreen = myGame.GraphicsDevice.Viewport;
             base.Initialize();
         }
 
@@ -94,7 +109,7 @@ namespace Easter_Game
         {
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
-
+          
             #region Load Textures.
             // Menu.
             menuTextures = Loader.ContentLoad<Texture2D>(Content, "Menu");
@@ -221,7 +236,12 @@ namespace Easter_Game
             if (activeScene.SceneType == "Gameplay")
             {
                 p1.Update(gameTime);
+                
             }
+
+            // According to previous examples, the camera shouldn't need any instructions in the game1's Update method. 
+            // I only placed the following line here for testing purposes.
+            Camera.Follow(p1.Position, GraphicsDevice.Viewport);
 
             base.Update(gameTime);
         }
@@ -234,7 +254,10 @@ namespace Easter_Game
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
-            spriteBatch.Begin();
+            spriteBatch.Begin(
+                SpriteSortMode.Immediate,
+                BlendState.AlphaBlend,
+                SamplerState.PointClamp, null, null, null, Camera.CurrentCameraTranslation);
 
             // Draw the current scene.
             activeScene.Draw(spriteBatch);           

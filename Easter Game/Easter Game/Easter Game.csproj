@@ -42,9 +42,11 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="AnimatedSprite.cs" />
+    <Compile Include="Camera.cs" />
     <Compile Include="Collectable.cs" />
     <Compile Include="EndTower.cs" />
     <Compile Include="Enemy.cs" />
+    <Compile Include="InputEngine.cs" />
     <Compile Include="MenuOption.cs" />
     <Compile Include="Cursor.cs" />
     <Compile Include="Game1.cs" />

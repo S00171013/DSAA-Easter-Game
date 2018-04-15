@@ -26,7 +26,9 @@ namespace Easter_Game
         // Draw method.
         public virtual void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Begin();
+            spriteBatch.Begin(SpriteSortMode.Immediate,
+                BlendState.AlphaBlend,
+                SamplerState.PointClamp, null, null, null, Camera.CurrentCameraTranslation);
 
             spriteBatch.Draw(Texture, BoundingRectangle, Color.White);
 
