@@ -33,13 +33,7 @@ namespace Easter_Game
             previousPosition = Position;            
 
             // Call the method that allows the player to move.
-            HandleMovement(gameTime);
-
-            #region Make sure the player stays in the bounds of the screen.
-            Position = Vector2.Clamp(Position, Vector2.Zero,
-                new Vector2(gameScreen.Width - Image.Width,
-                gameScreen.Height - Image.Height));
-            #endregion           
+            HandleMovement(gameTime);                   
         }
                      
         public void HandleMovement(GameTime gameTime)

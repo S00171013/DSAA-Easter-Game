@@ -25,7 +25,9 @@ namespace Easter_Game
 
         const int MINIMUM_TOWER_DISTANCE = 500;
 
-        public StartTower(Game gameIn, Texture2D image, Vector2 position, Color tint, int frameCountIn, Texture2D eTowerTextureIn, Texture2D enemyTextureIn, Random randomIn, SpriteFont displayIDFontIn) 
+        Enemy requeuedEnemy;
+
+        public StartTower(Game gameIn, Texture2D image, Vector2 position, Color tint, int frameCountIn, Texture2D eTowerTextureIn, Texture2D enemyTextureIn, Random randomIn, SpriteFont displayIDFontIn)
             : base(image, position, tint, frameCountIn)
         {
             // Set Game.
@@ -67,35 +69,37 @@ namespace Easter_Game
                     1,
                     CorrespondingTower));
             }
+
+            dequeuedEnemy = TowerEnemies.Dequeue();
+
             #endregion
         }
 
         public void Update(GameTime gtIn)
         {
             // This method will check whether or not an endtower is within the viewport.
-           // if (CheckCTPosition(CorrespondingTower) == true)
-           // {
-                // Call method to dequeue enemy.
-                DequeueEnemy();
+            // if (CheckCTPosition(CorrespondingTower) == true)
+            // {          
 
-                // Update the dequeued enemy.
-                if (dequeuedEnemy != null)
-                {
-                    dequeuedEnemy.Update(gtIn);
+            // Update the dequeued enemy.
+            if (dequeuedEnemy != null)
+            {
+                dequeuedEnemy.Update(gtIn);
 
-                    // Check tower collision.
-                    dequeuedEnemy.CheckTowerCollision(CorrespondingTower);
+                // Check tower collision.
+                dequeuedEnemy.CheckTowerCollision(CorrespondingTower);
             }
 
-                // If the dequeued enemy comes into contact with the endtower...
-                if (dequeuedEnemy.CheckTowerCollision(CorrespondingTower) == true)
-                {
-                    // Re-queue it.
-                    TowerEnemies.Enqueue(dequeuedEnemy);
-                    // Nullify dequeued enemy.
-                   // dequeuedEnemy = null;
-                }
-          //  }            
+            // If the dequeued enemy comes into contact with the endtower...
+            if (dequeuedEnemy.CheckTowerCollision(CorrespondingTower) == true)
+            {
+                // Queue the enemy.
+                TowerEnemies.Enqueue(dequeuedEnemy);
+
+                // Dequeue the next enemy.
+                DequeueEnemy();
+            }
+            //  }            
         }
 
         public override void Draw(SpriteBatch spIn)
@@ -114,6 +118,12 @@ namespace Easter_Game
             }
         }
 
+        public void DequeueEnemy()
+        {
+            // ...Dequeue an enemy.
+            dequeuedEnemy = TowerEnemies.Dequeue();
+        }
+
         public bool CheckCTPosition(EndTower ctIn)
         {
             if (CorrespondingTower.Position.X > gameScreen.Width + CorrespondingTower.Image.Width || CorrespondingTower.Position.Y > gameScreen.Height + CorrespondingTower.Image.Height)
@@ -124,16 +134,6 @@ namespace Easter_Game
             else
             {
                 return false;
-            }
-        }
-
-        public void DequeueEnemy()
-        {
-            // If no dequeued enemy exists...
-            if (dequeuedEnemy == null)
-            {
-                // ...Dequeue an enemy.
-                dequeuedEnemy = TowerEnemies.Dequeue();
             }
         }
 

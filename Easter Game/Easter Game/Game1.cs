@@ -55,7 +55,7 @@ namespace Easter_Game
         const int MAXIMUM_SCORE = 10;
 
         // Random generator.
-        Random randomG = new Random();      
+        Random randomG = new Random();
 
         // Start Towers
         List<StartTower> sTowers = new List<StartTower>();
@@ -67,12 +67,6 @@ namespace Easter_Game
 
         // Declare the game font.
         SpriteFont gameFont;
-
-
-        //  Declare camera.
-        //Camera cam;
-        
-
         #endregion
 
         public Game1()
@@ -90,11 +84,7 @@ namespace Easter_Game
             IsMouseVisible = true;
 
             new InputEngine(this);
-
-            // Camera set-up.
-            new Camera(this, Vector2.Zero,
-               new Vector2(GraphicsDevice.Viewport.Width, GraphicsDevice.Viewport.Height),
-               p1);
+          
 
             // Get the gameScreen
             //gameScreen = myGame.GraphicsDevice.Viewport;
@@ -109,7 +99,7 @@ namespace Easter_Game
         {
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
-          
+
             #region Load Textures.
             // Menu.
             menuTextures = Loader.ContentLoad<Texture2D>(Content, "Menu");
@@ -149,7 +139,12 @@ namespace Easter_Game
 
             #region Create gameplay objects.
             // Create player.
-            p1 = new Player(this, gameplayTextures["Game_1_Player"], new Vector2(100, 100), Color.White, 1);
+            Services.AddService(p1 = new Player(this, gameplayTextures["Game_1_Player"], new Vector2(100, 100), Color.White, 1));
+
+            // Camera set-up.
+            new Camera(this, Vector2.Zero,
+              new Vector2(playingField.Width, playingField.Height)
+                );
 
             #region Create a random number of collectable coins, scattered in random locations.
             for (int i = 0; i < RandomInt(10, 20); i++)
@@ -171,7 +166,7 @@ namespace Easter_Game
                     Color.White,
                     6));
             }
-            #endregion            
+            #endregion
 
             #region Create a random number of start towers, scattered in random locations.
             for (int i = 0; i < RandomInt(3, 6); i++)
@@ -179,11 +174,11 @@ namespace Easter_Game
                 #region Set a random position for the new start tower on the playing field.
                 int xPos = RandomInt(
                     100,
-                    playingField.Width);
+                    playingField.Width-500);
 
                 int yPos = RandomInt(
                     100,
-                    playingField.Height);
+                    playingField.Height-500);
                 #endregion
 
                 sTowers.Add(new StartTower(
@@ -202,7 +197,7 @@ namespace Easter_Game
 
             // Create gameplay scene.
             Scene gameplay = new Scene(p1, gameplayTextures["Game_0_Background"],
-                collectables,              
+                collectables,
                 sTowers,
                 eTowers);
 
@@ -230,18 +225,14 @@ namespace Easter_Game
                 Exit();
 
             // Update the current scene.
-            activeScene.Update(gameTime);            
+            activeScene.Update(gameTime);
 
             // Update the player if gameplay has been initiated.
             if (activeScene.SceneType == "Gameplay")
             {
                 p1.Update(gameTime);
-                
-            }
 
-            // According to previous examples, the camera shouldn't need any instructions in the game1's Update method. 
-            // I only placed the following line here for testing purposes.
-            Camera.Follow(p1.Position, GraphicsDevice.Viewport);
+            }           
 
             base.Update(gameTime);
         }
@@ -260,12 +251,12 @@ namespace Easter_Game
                 SamplerState.PointClamp, null, null, null, Camera.CurrentCameraTranslation);
 
             // Draw the current scene.
-            activeScene.Draw(spriteBatch);           
+            activeScene.Draw(spriteBatch);
 
             // Draw the player if gameplay has been initiated.
             if (activeScene.SceneType == "Gameplay")
             {
-                p1.Draw(spriteBatch);                              
+                p1.Draw(spriteBatch);
             }
 
             spriteBatch.End();

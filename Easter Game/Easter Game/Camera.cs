@@ -18,13 +18,14 @@ namespace Easter_Game
 
         // Read-only properties.
         public static Matrix CurrentCameraTranslation
-        { get
+        {
+            get
             {
                 return Matrix.CreateTranslation(new Vector3(
                     -CamPos,
                     0));
             }
-        }       
+        }
 
         public static Vector2 CamPos
         {
@@ -38,43 +39,30 @@ namespace Easter_Game
                 _camPos = value;
             }
         }
-
-        public Player Target { get; }
+       
 
         // Constructor.
-        public Camera(Game game, Vector2 startPos, Vector2 bound, Player targetIn) : base(game)
+        public Camera(Game game, Vector2 startPos, Vector2 bound) : base(game)
         {
             game.Components.Add(this);
             CamPos = startPos;
             _worldBound = bound;
-
-            // Set player to follow.
-            Target = targetIn;            
+           
         }
 
         public override void Update(GameTime gameTime)
-        {
-            #region Moving the camera manually with the arrow keys.
-            if (InputEngine.IsKeyHeld(Keys.Left))
-                Move(new Vector2(-1, 0) * CameraSpeed, Game.GraphicsDevice.Viewport);
-            if (InputEngine.IsKeyHeld(Keys.Right))
-                Move(new Vector2(1, 0) * CameraSpeed, Game.GraphicsDevice.Viewport);
-            if (InputEngine.IsKeyHeld(Keys.Down))
-                Move(new Vector2(0, 1) * CameraSpeed, Game.GraphicsDevice.Viewport);
-            if (InputEngine.IsKeyHeld(Keys.Up))
-                Move(new Vector2(0, -1) * CameraSpeed, Game.GraphicsDevice.Viewport);
-            #endregion
+        {          
+            #region Follow the player.          
+            Player p = (Player)Game.Services.GetService(typeof(Player));
 
-            #region Following the player.
-            //Player p = (Player)Game.Services.GetService(typeof(Player));
-            if (Target != null)
+            if (p != null)
             {
-                Follow(Target.Position, Game.GraphicsDevice.Viewport);
+                Follow(p.Position, Game.GraphicsDevice.Viewport);
 
                 //Make sure the player stays in the bounds
-                Target.Position = Vector2.Clamp(Target.Position, Vector2.Zero,
-                                                new Vector2(_worldBound.X - Target.Bounds.Width,
-                                                            _worldBound.Y - Target.Bounds.Height));
+                p.Position = Vector2.Clamp(p.Position, Vector2.Zero,
+                                                new Vector2(_worldBound.X - p.Bounds.Width,
+                                                            _worldBound.Y - p.Bounds.Height));
             }
             #endregion
 
