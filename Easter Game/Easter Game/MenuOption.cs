@@ -40,7 +40,8 @@ namespace Easter_Game
             if(Clicked == true)
             {
                 Tint = Color.Goldenrod;
-                Clicked = false;
+
+                //Clicked = false;
             }
 
             else

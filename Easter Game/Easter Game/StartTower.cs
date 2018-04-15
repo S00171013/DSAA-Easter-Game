@@ -53,7 +53,7 @@ namespace Easter_Game
             #region Set up Endtower. 
             CorrespondingTower = new EndTower(
                     eTowerTextureIn,
-                    new Vector2(Position.X + RandomInt(-MINIMUM_TOWER_DISTANCE, MINIMUM_TOWER_DISTANCE), Position.Y + RandomInt(-MINIMUM_TOWER_DISTANCE, MINIMUM_TOWER_DISTANCE)),
+                    new Vector2(Position.X + RandomInt(100, MINIMUM_TOWER_DISTANCE), Position.Y + RandomInt(100, MINIMUM_TOWER_DISTANCE)),
                     Color.White,
                     1,
                     TowerIDFont,

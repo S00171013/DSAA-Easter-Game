@@ -39,6 +39,7 @@ namespace Easter_Game
 
         // Scenes
         List<Scene> gameScenes;
+        Stack<Scene> sceneStack = new Stack<Scene>();
         Scene activeScene, menu, gameplay, highScore;
         SceneManager sceneManager;
 
@@ -69,6 +70,11 @@ namespace Easter_Game
         SpriteFont gameFont;
         #endregion
 
+
+        bool gameOver = false;
+        int collectedCounter = 0;
+        Texture2D gameOverScreen;
+
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
@@ -84,10 +90,7 @@ namespace Easter_Game
             IsMouseVisible = true;
 
             new InputEngine(this);
-          
-
-            // Get the gameScreen
-            //gameScreen = myGame.GraphicsDevice.Viewport;
+                     
             base.Initialize();
         }
 
@@ -109,6 +112,8 @@ namespace Easter_Game
             // Load game font.
             gameFont = Content.Load<SpriteFont>("gameFont");
             #endregion
+
+            gameOverScreen = Content.Load<Texture2D>("Default Assets/Game_7_Complete");
 
             #region Load SFX and BGM.
             // SFX.
@@ -169,7 +174,7 @@ namespace Easter_Game
             #endregion
 
             #region Create a random number of start towers, scattered in random locations.
-            for (int i = 0; i < RandomInt(3, 6); i++)
+            for (int i = 0; i < RandomInt(MINIMUM_TOWERS, MAXIMUM_TOWERS); i++)
             {
                 #region Set a random position for the new start tower on the playing field.
                 int xPos = RandomInt(
@@ -199,10 +204,16 @@ namespace Easter_Game
             Scene gameplay = new Scene(p1, gameplayTextures["Game_0_Background"],
                 collectables,
                 sTowers,
-                eTowers);
+                eTowers);            
 
             // Set the initial active scene to that of the main menu.
+            // For now it will be set to the gameplay screen.
             activeScene = gameplay;
+
+            // Push the gameplay scene onto the screen stack.
+            sceneStack.Push(gameplay);
+
+            sceneManager = new SceneManager(menu, gameplay, sceneStack);
         }
 
         /// <summary>
@@ -221,20 +232,57 @@ namespace Easter_Game
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime)
         {
-            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
-                Exit();
-
-            // Update the current scene.
-            activeScene.Update(gameTime);
-
-            // Update the player if gameplay has been initiated.
-            if (activeScene.SceneType == "Gameplay")
+            if (gameOver == false)
             {
-                p1.Update(gameTime);
 
-            }           
+                if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
+                    Exit();
 
-            base.Update(gameTime);
+                #region In progress.
+                // Does not work.
+                //if (playOp.Clicked == true && sceneStack.Peek() != menu)
+                //{
+                //    // Activate the gameplay scene.
+                //    Scene activeScene = sceneStack.Pop();
+
+                //    // Push the menu scene onto the stack. (The menu becomes null now for some reason, because of the pop() function?)
+                //    sceneStack.Push(menu);            
+                //}
+
+                //if(playOp.Clicked == true && activeScene != gameplay)
+                //{
+                //    // Must fix.
+                //    //sceneManager.StartGame();
+
+                //    activeScene = gameplay;
+                //}
+                #endregion
+
+                // Update the current scene.
+                activeScene.Update(gameTime);
+
+                // Update the player if gameplay has been initiated.
+                if (activeScene.SceneType == "Gameplay")
+                {
+                    p1.Update(gameTime);
+                }
+
+                #region Quick, basic gameover code.
+                //foreach (Collectable coin in collectables)
+                //{
+                //    if (coin.Visible == false)
+                //    {
+                //        collectedCounter++;
+                //    }
+                //}
+
+                //if (collectedCounter == collectables.Count)
+                //{
+                //    gameOver = true;
+                //}
+                #endregion
+            }
+            base.Update(gameTime);           
         }
 
         /// <summary>
@@ -250,15 +298,22 @@ namespace Easter_Game
                 BlendState.AlphaBlend,
                 SamplerState.PointClamp, null, null, null, Camera.CurrentCameraTranslation);
 
-            // Draw the current scene.
-            activeScene.Draw(spriteBatch);
-
-            // Draw the player if gameplay has been initiated.
-            if (activeScene.SceneType == "Gameplay")
+            if (gameOver == false)
             {
-                p1.Draw(spriteBatch);
+                // Draw the current scene.
+                activeScene.Draw(spriteBatch);
+
+                // Draw the player if gameplay has been initiated.
+                if (activeScene.SceneType == "Gameplay")
+                {
+                    p1.Draw(spriteBatch);
+                }
             }
 
+            //else
+            //{
+            //    spriteBatch.Draw(gameOverScreen, new Vector2(0, 0), Color.White);
+            //}
             spriteBatch.End();
             base.Draw(gameTime);
         }
