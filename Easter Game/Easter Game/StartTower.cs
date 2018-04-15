@@ -25,7 +25,9 @@ namespace Easter_Game
 
         const int MINIMUM_TOWER_DISTANCE = 500;
 
-        Enemy requeuedEnemy;
+        Texture2D eTexture;
+
+
 
         public StartTower(Game gameIn, Texture2D image, Vector2 position, Color tint, int frameCountIn, Texture2D eTowerTextureIn, Texture2D enemyTextureIn, Random randomIn, SpriteFont displayIDFontIn)
             : base(image, position, tint, frameCountIn)
@@ -44,6 +46,9 @@ namespace Easter_Game
 
             // Set the tower's ID.
             towerID = RandomInt(0, 200);
+
+            // Make sure the tower stays in the bounds. (Bounds hard-coded for now. It is the bounds of the playing field.)
+            Position = Vector2.Clamp(Position, Vector2.Zero, new Vector2(2652, 1376));
 
             #region Set up Endtower. 
             CorrespondingTower = new EndTower(
@@ -70,36 +75,49 @@ namespace Easter_Game
                     CorrespondingTower));
             }
 
-            dequeuedEnemy = TowerEnemies.Dequeue();
+            eTexture = enemyTextureIn;
 
+            dequeuedEnemy = TowerEnemies.Dequeue();
             #endregion
         }
 
         public void Update(GameTime gtIn)
         {
             // This method will check whether or not an endtower is within the viewport.
-            // if (CheckCTPosition(CorrespondingTower) == true)
-            // {          
-
-            // Update the dequeued enemy.
-            if (dequeuedEnemy != null)
+            if (CheckCTPosition(CorrespondingTower) == true)
             {
-                dequeuedEnemy.Update(gtIn);
 
-                // Check tower collision.
-                dequeuedEnemy.CheckTowerCollision(CorrespondingTower);
+                // Update the dequeued enemy.
+                if (dequeuedEnemy != null)
+                {
+                    dequeuedEnemy.Update(gtIn);
+
+                    // Check tower collision.
+                    dequeuedEnemy.CheckTowerCollision(CorrespondingTower);
+                }
+
+                // For now the only way to have the queue act as a proper conveyor belt is to create a new enemy and enqueue it each time.
+                // Otherwise, when I would instead re-queue the dequeued enemy, the queue would eventually become empty, as if something was making each enemy null when they reached their target.
+                // If the dequeued enemy comes into contact with the endtower...
+                if (dequeuedEnemy.CheckTowerCollision(CorrespondingTower) == true)
+                {         
+                    // Add a new enemy to the queue.           
+                    TowerEnemies.Enqueue(new Enemy(
+                       eTexture,
+                       new Vector2(Position.X, Position.Y),
+                       Color.White,
+                       1,
+                       CorrespondingTower));
+
+                    // Nullify the dequeued enemy.
+                    dequeuedEnemy = null;
+
+                    // Dequeue the next enemy.
+                    DequeueEnemy();
+                }
             }
 
-            // If the dequeued enemy comes into contact with the endtower...
-            if (dequeuedEnemy.CheckTowerCollision(CorrespondingTower) == true)
-            {
-                // Queue the enemy.
-                TowerEnemies.Enqueue(dequeuedEnemy);
-
-                // Dequeue the next enemy.
-                DequeueEnemy();
-            }
-            //  }            
+            gameScreen = myGame.GraphicsDevice.Viewport;
         }
 
         public override void Draw(SpriteBatch spIn)
@@ -126,7 +144,7 @@ namespace Easter_Game
 
         public bool CheckCTPosition(EndTower ctIn)
         {
-            if (CorrespondingTower.Position.X > gameScreen.Width + CorrespondingTower.Image.Width || CorrespondingTower.Position.Y > gameScreen.Height + CorrespondingTower.Image.Height)
+            if (CorrespondingTower.Position.X < gameScreen.Width + CorrespondingTower.Image.Width || CorrespondingTower.Position.Y < gameScreen.Height + CorrespondingTower.Image.Height)
             {
                 return true;
             }

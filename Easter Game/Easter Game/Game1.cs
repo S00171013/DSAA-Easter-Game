@@ -152,11 +152,11 @@ namespace Easter_Game
                 #region Set a random position for the new collectable on the playing field.
                 int xPos = RandomInt(
                     100,
-                    playingField.Width);
+                    playingField.Width-gameplayTextures["Game_6_Collectable"].Width);
 
                 int yPos = RandomInt(
                     100,
-                    playingField.Height);
+                    playingField.Height-gameplayTextures["Game_6_Collectable"].Height);
                 #endregion
 
                 collectables.Add(new Collectable(this,

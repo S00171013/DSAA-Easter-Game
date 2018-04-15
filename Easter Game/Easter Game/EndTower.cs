@@ -19,6 +19,9 @@ namespace Easter_Game
         {
             TowerIDFont = towerIDFontIn;
             TowerID = towerIDIn;
+
+            // Ensure the tower stays in the bounds. (Bounds hard-coded for now. It is the bounds of the playing field.)
+            Position = Vector2.Clamp(Position, Vector2.Zero, new Vector2(2652, 1376));
         }
 
         public override void Draw(SpriteBatch sp, SpriteFont sf)

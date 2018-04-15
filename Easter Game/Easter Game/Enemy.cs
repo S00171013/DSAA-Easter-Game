@@ -14,7 +14,7 @@ namespace Easter_Game
         public EndTower Target { get; }
 
         // Constant for the enemy's movement speed.
-        const float MOVE_SPEED = 0.020f;
+        const float MOVE_SPEED = 0.015f;
 
         public Enemy(Texture2D image, Vector2 position, Color tint, int frameCountIn, EndTower targetIn) : base(image, position, tint, frameCountIn)
         {
@@ -49,6 +49,7 @@ namespace Easter_Game
             if ((Bounds.Intersects(ctIn.Bounds)))
             {
                 Tint = Color.Pink;
+                
                 return true;
             }
 

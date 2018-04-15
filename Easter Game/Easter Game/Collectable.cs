@@ -18,14 +18,7 @@ namespace Easter_Game
         {
             myGame = gameIn;
             ScoreWorth = scoreWorthIn;
-        }
-
-        //public virtual void Update(GameTime gtIn)
-        //{
-        //    // Update collision with the player.
-        //    //CheckPlayerCollision();
-        //}
-
+        }      
 
         public void CheckPlayerCollision(Player other)
         {
